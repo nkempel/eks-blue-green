@@ -5,8 +5,8 @@
 #
 
 # AWS variables
-AWS_PROFILE=default
-AWS_REGION=eu-west-3
+# AWS_PROFILE=default
+AWS_REGION=ca-central-1
 # project name
 PROJECT_NAME=eks-blue-green
 # the directory containing the script file
@@ -156,7 +156,7 @@ k8s-1.1.0-green() {
     log DOCKER_IMAGE $DOCKER_IMAGE
     log LABEL_VERSION $LABEL_VERSION
     envsubst < deployment.yaml | kubectl apply --filename -
-    
+
     # service-green.yaml creates the `parrot-green` service
     envsubst < service-green.yaml | kubectl apply --filename -
 
@@ -194,7 +194,7 @@ k8s-1.2.0-green() {
     log DOCKER_IMAGE $DOCKER_IMAGE
     log LABEL_VERSION $LABEL_VERSION
     envsubst < deployment.yaml | kubectl apply --filename -
-    
+
     # service-green.yaml creates the `parrot-green` service
     envsubst < service-green.yaml | kubectl apply --filename -
 
@@ -227,7 +227,7 @@ destroy() {
     cd "$PROJECT_DIR/infra"
     terraform destroy -auto-approve
 
-    
+
     # delete ecr repository
     cd "$PROJECT_DIR"
     bash scripts/ecr-delete.sh
