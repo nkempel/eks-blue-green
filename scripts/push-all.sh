@@ -1,14 +1,13 @@
 # root account id
 ACCOUNT_ID=$(aws sts get-caller-identity \
     --query 'Account' \
-    --profile $AWS_PROFILE \
+    # --profile $AWS_PROFILE \
     --output text)
 log ACCOUNT_ID $ACCOUNT_ID
 
 # add login data into /home/$USER/.docker/config.json
 aws ecr get-login-password \
     --region $AWS_REGION \
-    --profile $AWS_PROFILE \
     | docker login \
     --username AWS \
     --password-stdin $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
